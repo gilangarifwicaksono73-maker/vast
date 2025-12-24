@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAST - Express Your Moment</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #0a0a1a;
+            --accent-red: #e94560;
+            --soft-blue: #16213e;
+            --glass-white: rgba(255, 255, 255, 0.05);
+            --text-white: #ffffff;
+            --text-gray: #a2a2a2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-navy);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* Latar Belakang Dekoratif agar tidak kosong */
+        .bg-blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, rgba(10, 10, 26, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(50px);
+        }
+
+        /* Navigasi Modern */
+        nav {
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-red);
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li { margin-left: 40px; }
+
+        nav ul li a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover { color: var(--accent-red); }
+
+        /* Hero Section dengan Animasi Text */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Tombol Animasi */
+        .btn-main {
+            padding: 15px 40px;
+            background: var(--accent-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(233, 69, 96, 0.5);
+        }
+
+        /* Section Global */
+        section { padding: 120px 10%; }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .section-title .line {
+            width: 80px;
+            height: 4px;
+            background: var(--accent-red);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Grid Layout & Glassmorphism */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border: 1px solid var(--accent-red);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Struktur Tim */
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member h4 {
+            font-size: 1.2rem;
+            color: var(--accent-red);
+            margin-top: 15px;
+        }
+
+        .team-member p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 10% 40px;
+            background: #05050f;
+            text-align: center;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover { color: var(--accent-red); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            nav ul { display: none; } /* Simpel: sembunyikan menu di mobile */
+            section { padding: 80px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blob" style="top: 10%; left: -10%;"></div>
+    <div class="bg-blob" style="bottom: 10%; right: -10%;"></div>
+
+    <nav>
+        <div class="logo-text">VAST</div>
+        <ul>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#services">Produk</a></li>
+            <li><a href="#team">Tim</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1 data-aos="zoom-out" data-aos-duration="1200">Express Your Moment.</h1>
+        <p data-aos="fade-up" data-aos-delay="300">Kami menghadirkan layanan desain yang artistik, estetik, dan mengikuti tren terkini untuk mengabadikan momen berharga Anda.</p>
+        <div data-aos="fade-up" data-aos-delay="500">
+            <a href="#services" class="btn-main">Lihat Produk Kami</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Deskripsi & Visi</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-container">
+            <div class="glass-card" data-aos="fade-right">
+                <span class="card-icon">🚀</span>
+                <h3>Tentang VAST</h3>
+                <p>Usaha kreatif di bidang jasa desain undangan, scrapbook, dan photo strip baik digital maupun cetak[cite: 23]. Kami berkomitmen memberikan layanan cepat, responsif, dan terjangkau[cite: 25].</p>
+            </div>
+            <div class="glass-card" data-aos="fade-left">
+                <span class="card-icon">✨</span>
+                <h3>Visi Misi</h3>
+                <p>Menjadi usaha kreatif desain terpercaya yang mampu mengekspresikan momen berharga pelanggan melalui karya artistik dan mengikuti tren[cite: 96, 97].</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Hasil Produk</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-container">
+            <div class="glass-card" data-aos="flip-left" data-aos-delay="100">
+                <h3>Photo Strip</h3>
+                <p>Foto vertikal/horizontal (3-4 foto) yang dicetak secara berurutan[cite: 56, 57].</p>
+            </div>
+            <div class="glass-card" data-aos="flip-left" data-aos-delay="200">
+                <h3>Scrapbook</h3>
+                <p>Buku kreatif personal untuk mengenang momen tertentu dengan dekorasi unik[cite: 58, 59].</p>
+            </div>
+            <div class="glass-card" data-aos="flip-left" data-aos-delay="300">
+                <h3>Undangan</h3>
+                <p>Media resmi cetak atau digital untuk acara spesial Anda[cite: 72, 73].</p>
+            </div>
+            <div class="glass-card" data-aos="flip-left" data-aos-delay="400">
+                <h3>Custom Design</h3>
+                <p>Desain khusus yang dibuat sesuai permintaan personal klien[cite: 74, 75].</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Struktur Organisasi</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-container">
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="100">
+                <h4>Gilang Arif Wicaksono</h4>
+                <p>Ketua [cite: 33]</p>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="200">
+                <h4>Naylla Putri Setyawan</h4>
+                <p>Manager Keuangan [cite: 35]</p>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="300">
+                <h4>Cichanti Putri Yuniarahma</h4>
+                <p>Copywriter [cite: 37]</p>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="400">
+                <h4>Alivia Kanaya Novaliza</h4>
+                <p>Desain Utama [cite: 38]</p>
+            </div>
+            <div class="team-member" data-aos="zoom-in" data-aos-delay="500">
+                <h4>Salsabila Najla Putri Dema</h4>
+                <p>Dokumentasi & Media [cite: 34]</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div data-aos="fade-up">
+            <h2>Mulai Momen Anda Bersama Kami</h2>
+            <p style="margin: 20px 0;">Email: <strong>vast.eym15@gmail.com</strong> [cite: 7]</p>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Facebook</a>
+            </div>
+            <p style="margin-top: 50px; font-size: 0.8rem; color: var(--text-gray);">© 2024 VAST: Express Your Moment.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi Animasi
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>
